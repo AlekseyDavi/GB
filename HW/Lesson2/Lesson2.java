@@ -1,4 +1,4 @@
-package HW;
+package HW.Lesson2;
 
 public class Lesson2 {
     public static void printArray(int[] massive) {

@@ -1,4 +1,4 @@
-package HW;
+package HW.Lesson1;
 
 public class Lesson1 {
     public static float meth1(float a1, float a2, float a3, float a4) {
