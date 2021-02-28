@@ -2,8 +2,8 @@ package HW;
 
 public class Lesson2 {
     public static void printArray(int[] massive) {
-        for (int i = 0; i < massive.length; i++) {
-            System.out.print(massive[i] + " ");
+        for (int j : massive) {
+            System.out.print(j + " ");
         }
     }
 
@@ -11,11 +11,10 @@ public class Lesson2 {
         return Math.abs(a - 1);
     }
 
-    public static int[] math2(int[] a) {
+    public static void math2(int[] a) {
         for (int i = 0; i < a.length; i++) {
             a[i] = 1 + 3 * i;
         }
-        return a;
     }
 
     public static int[] math3(int[] a) {
@@ -29,10 +28,10 @@ public class Lesson2 {
 
     public static void math4Min(int[] a) {
         int b = 0;
-        for (int i = 0; i < a.length; i++) {
+        for (int j : a) {
 
-            if (b > a[i]) {
-                b = a[i];
+            if (b > j) {
+                b = j;
             }
         }
         System.out.println("Min = " + b);
@@ -40,10 +39,10 @@ public class Lesson2 {
 
     public static void math4Max(int[] a) {
         int b = 0;
-        for (int i = 0; i < a.length; i++) {
+        for (int j : a) {
 
-            if (b < a[i]) {
-                b = a[i];
+            if (b < j) {
+                b = j;
             }
         }
         System.out.println("Min = " + b);
@@ -100,8 +99,8 @@ public class Lesson2 {
         System.out.println("Задание 2");
         int[] massiveEightLength = new int[8];
         math2(massiveEightLength);
-        for (int i = 0; i < massiveEightLength.length; i++) {
-            System.out.print(massiveEightLength[i] + " ");
+        for (int k : massiveEightLength) {
+            System.out.print(k + " ");
         }
         System.out.println();
 
