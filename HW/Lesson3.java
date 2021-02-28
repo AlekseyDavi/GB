@@ -5,9 +5,9 @@ import java.util.Scanner;
 
 public class Lesson3 {
     public static char[][] map;
-    public static int getSizeMapX = 3;
-    public static int getSizeMapY = 3;
-    //  public static int pointWin = 4;
+    public static int getSizeMapX = 5;
+    public static int getSizeMapY = 5;
+    public static int winPoint = 4;
     public static char firstChar = 'X';
     public static char secondChar = 'O';
     public static char emptyChar = '_';
@@ -42,9 +42,7 @@ public class Lesson3 {
             x = scanner.nextInt() - 1;
             y = scanner.nextInt() - 1;
         } while (!isValidCell(y, x) || !isEmpty(y, x));
-        if (isValidCell(y, x) && isEmpty(y, x)) {
-            map[x][y] = firstChar;
-        }
+        map[y][x] = firstChar;
     }
 
     public static void secondPlayer() {
@@ -55,8 +53,8 @@ public class Lesson3 {
             y = random.nextInt(getSizeMapY);
 
         } while (!isEmpty(y, x));
-        if (isValidCell(y, x) && isEmpty(y, x)) {
-            map[x][y] = secondChar;
+        if (isValidCell(y, x) || isEmpty(y, x)) {
+            map[y][x] = secondChar;
         }
     }
 
@@ -65,105 +63,102 @@ public class Lesson3 {
     }
 
     public static boolean isValidCell(int y, int x) {
+
         return x >= 0 && x < getSizeMapX && y >= 0 && y < getSizeMapY;
     }
 
-    //    public static boolean checkWinPoint(int[] line, char playerChar) {
-//        int checkPoint = 0;
-//        for (int i = 0; i < line.length; i++) {
-//            if (checkPoint < pointWin) {
-//                if (line[i] == playerChar) {
-//                    checkPoint += 1;
-//                } else {
-//                    checkPoint *= 0;
-//                }
-//            } else {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-//
-//
-//    public static boolean checkWin(char playerChar) {
-//        int[] line = new int[getSizeMapY + getSizeMapX];
-//        for (int y = 0; y < getSizeMapX; y++) {
-//            for (int x = 0; x < getSizeMapY; x++) {
-//                line[x] = emptyChar;
-//                line[x] = map[y][x];
-//            }
-//            if (checkWinPoint(line, playerChar)) return true;
-//        }
-//        for (int y = 0; y < getSizeMapX; y++) {
-//            for (int x = 0; x < getSizeMapY; x++) {
-//                line[x] = emptyChar;
-//                line[x] = map[x][y];
-//            }
-//            if (checkWinPoint(line, playerChar)) return true;
-//        }
-//        for (int y = 0; y < getSizeMapX; y++) {
-//            for (int x = 0; x < getSizeMapY; x++) {
-//                line[x] = emptyChar;
-//                line[x] = map[x][x];
-//            }
-//            if (checkWinPoint(line, playerChar)) return true;
-//        }
-//        for (int y = 0; y < getSizeMapX; y++) {
-//            for (int x = 0; x < getSizeMapY; x++) {
-//                line[x] = emptyChar;
-//                line[x] = map[x][ getSizeMapX-x-1];
-//            }
-//            if (checkWinPoint(line, playerChar)) return true;
-//        }
-//        for (int i = 0; i < getSizeMapX - pointWin; i++) {
-//            for (int y = 0; y < getSizeMapX; y++) {
-//                for (int x = 0; x < getSizeMapY; x++) {
-//                    line[x] = emptyChar;
-//                    while (getSizeMapX > (x + getSizeMapX - pointWin)) line[x] = map[x][x + getSizeMapX - pointWin];
-//                }
-//                if (checkWinPoint(line, playerChar)) return true;
-//            }
-//        }
-//        for (int i = 0; i < getSizeMapX - pointWin; i++) {
-//            for (int y = 0; y < getSizeMapX; y++) {
-//                for (int x = 0; x < getSizeMapY; x++) {
-//                    line[x] = emptyChar;
-//                    while (getSizeMapX > (x - getSizeMapX + pointWin)) line[x] = map[x][x - getSizeMapX + pointWin];
-//                }
-//                if (checkWinPoint(line, playerChar)) return true;
-//            }
-//        }
-//        for (int i = 0; i < getSizeMapX - pointWin; i++) {
-//            for (int y = 0; y < getSizeMapX; y++) {
-//                for (int x = 0; x < getSizeMapY; x++) {
-//                    line[x] = emptyChar;
-//                    while (getSizeMapX > (x + getSizeMapX - pointWin)) line[x] = map[x + getSizeMapX - pointWin][x];
-//                }
-//                if (checkWinPoint(line, playerChar)) return true;
-//            }
-//        }
-//        for (int i = 0; i < getSizeMapX - pointWin; i++) {
-//            for (int y = 0; y < getSizeMapX; y++) {
-//                for (int x = 0; x < getSizeMapY; x++) {
-//                    line[x] = emptyChar;
-//                    while (getSizeMapX > (x - getSizeMapX + pointWin)) line[x] = map[x - getSizeMapX + pointWin][x];
-//                }
-//                if (checkWinPoint(line, playerChar)) return true;
-//            }
-//        }
-//        return false;
-//    }
     public static boolean checkWin(char playerChar) {
-        if (map[0][0] == playerChar && map[1][0] == playerChar && map[2][0] == playerChar) return true;
-        if (map[0][1] == playerChar && map[1][1] == playerChar && map[2][1] == playerChar) return true;
-        if (map[0][2] == playerChar && map[1][2] == playerChar && map[2][2] == playerChar) return true;
+        return checkWinLine(playerChar) || checkWinDiagonal(playerChar);
+    }
 
-        if (map[0][0] == playerChar && map[0][1] == playerChar && map[0][2] == playerChar) return true;
-        if (map[1][0] == playerChar && map[1][1] == playerChar && map[1][2] == playerChar) return true;
-        if (map[2][0] == playerChar && map[2][1] == playerChar && map[2][2] == playerChar) return true;
+    public static boolean checkWinDiagonal(char playerChar) {
+        int lineY = 0;
+        int lineX = 0;
+        for (int i = 0; i < getSizeMapY; i++) {
 
-        if (map[0][0] == playerChar && map[1][1] == playerChar && map[2][2] == playerChar) return true;
-        if (map[0][2] == playerChar && map[1][1] == playerChar && map[2][0] == playerChar) return true;
+            for (int y = 0; y < getSizeMapX; y++) {
+                if (isValidCell(y, y + i)) {
+                    if (map[y][y + i] == playerChar) {
+                        lineY += 1;
+                    } else {
+                        lineY *= 0;
+                    }
+                    if (lineY == winPoint) {
+                        return true;
+                    }
+                }
+            }
+            for (int x = 0; x < getSizeMapX; x++) {
+                if (isValidCell(x + i, x)) {
+                    if (map[x + i][x] == playerChar) {
+                        lineX += 1;
+                    } else {
+                        lineX *= 0;
+                    }
+                    if (lineX == winPoint) {
+                        return true;
+                    }
+                }
+            }
+            lineY = 0;
+             lineX = 0;
+            for (int y = 0; y < getSizeMapX; y++) {
+                if (isValidCell(y, getSizeMapY - y - 1 + i)) {
+                    if (map[y][getSizeMapY - y - 1 + i] == playerChar) {
+                        lineY += 1;
+                    } else {
+                        lineY *= 0;
+                    }
+                    if (lineY == winPoint) {
+                        return true;
+                    }
+                }
+            }
+            for (int x = 0; x < getSizeMapX; x++) {
+                if (isValidCell(getSizeMapY - x - 1 + i, x)) {
+                    if (map[getSizeMapY - x - 1 + i][x] == playerChar) {
+                        lineX += 1;
+                    } else {
+                        lineX *= 0;
+                    }
+                    if (lineX == winPoint) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+
+        return false;
+    }
+
+    public static boolean checkWinLine(char playerChar) {
+        for (int y = 0; y < getSizeMapY; y++) {
+            int lineX = 0;
+            int lineY = 0;
+            for (int x = 0; x < getSizeMapX; x++) {
+                if (map[y][x] == playerChar) {
+                    lineY += 1;
+                } else {
+                    lineY *= 0;
+                }
+                if (lineY == winPoint) {
+                    return true;
+                }
+            }
+            for (int x = 0; x < getSizeMapX; x++) {
+
+                if (map[y][x] == playerChar) {
+                    lineX += 1;
+                } else {
+                    lineX *= 0;
+                }
+                if (lineX == winPoint) {
+                    return true;
+                }
+            }
+
+        }
         return false;
     }
 
@@ -182,8 +177,8 @@ public class Lesson3 {
         createMap();
         printMap();
         while (true) {
-        firstPlayer();
-        printMap();
+            firstPlayer();
+            printMap();
 
             if (checkWin(firstChar)) {
                 System.out.println("First Player Win");

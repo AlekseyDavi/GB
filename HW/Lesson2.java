@@ -59,11 +59,8 @@ public class Lesson2 {
 
     public static void math7(int[] a, int b) {
         b %= a.length;
-        System.out.println(a.length);
-        System.out.println(b + " ");
-        if (b < 0) {
+             if (b < 0) {
             b = Math.abs(b);
-            System.out.println(b + " ");
             for (int i = 0; i < b; i++) {
                 for (int j = a.length - 1; j > 0; j--) {
                     a[j] += a[j - 1];
