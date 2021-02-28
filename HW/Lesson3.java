@@ -11,6 +11,7 @@ public class Lesson3 {
     public static char firstChar = 'X';
     public static char secondChar = 'O';
     public static char emptyChar = '_';
+
     public static Random random = new Random();
 
     public static Scanner scanner = new Scanner(System.in);
@@ -75,7 +76,6 @@ public class Lesson3 {
         int lineY = 0;
         int lineX = 0;
         for (int i = 0; i < getSizeMapY; i++) {
-
             for (int y = 0; y < getSizeMapX; y++) {
                 if (isValidCell(y, y + i)) {
                     if (map[y][y + i] == playerChar) {
@@ -101,7 +101,7 @@ public class Lesson3 {
                 }
             }
             lineY = 0;
-             lineX = 0;
+            lineX = 0;
             for (int y = 0; y < getSizeMapX; y++) {
                 if (isValidCell(y, getSizeMapY - y - 1 + i)) {
                     if (map[y][getSizeMapY - y - 1 + i] == playerChar) {
@@ -127,8 +127,6 @@ public class Lesson3 {
                 }
             }
         }
-
-
         return false;
     }
 
@@ -177,9 +175,9 @@ public class Lesson3 {
         createMap();
         printMap();
         while (true) {
+
             firstPlayer();
             printMap();
-
             if (checkWin(firstChar)) {
                 System.out.println("First Player Win");
                 break;
@@ -201,6 +199,4 @@ public class Lesson3 {
             }
         }
     }
-
-
 }
