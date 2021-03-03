@@ -1,4 +1,4 @@
-package HW;
+package HW.Lesson1;
 
 public class Lesson1 {
     public static float meth1(float a1, float a2, float a3, float a4) {
@@ -38,10 +38,6 @@ public class Lesson1 {
         System.out.println(meth2(a, b));
         meth3(a);
         meth4(name);
-//        meth5(100);
-//        meth5(4);
-//        meth5(1601);
-//        meth5(2000);
         System.out.println(meth5(1800));
         System.out.println(meth5(2020));
         System.out.println(meth5(1601));
